@@ -1,10 +1,9 @@
 // connect routes to server
 const router = require('express').Router();
-const userRoutes = require('./user-routes');
-const thoughtRoutes = require('./thought-routes');
+const userRoutes = require('./userRoutes');
+const thoughtRoutes = require('./thoughtRoutes');
 
-// adds prefix to routes
 router.use('/users', userRoutes);
 router.use('/thoughts', thoughtRoutes);
 
-module.exports = router;stu
+module.exports = router;
