@@ -6,10 +6,10 @@ const {
     getUserById,
     createUser,
     updateUser,
-    addFriend,
     deleteUser,
+    addFriend,
     deleteFriend
-} = require('../../controllers/user-controller');
+} = require('../../controllers/userControllers');
 
 // /api for /users
 router
