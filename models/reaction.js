@@ -1,5 +1,5 @@
 // import dependencies
-const { Schema, model, Types } = require('mongoose');
+const { Schema, Types } = require('mongoose');
 const moment = require('moment');
 
 const ReactionSchema = new Schema({
@@ -30,6 +30,4 @@ const ReactionSchema = new Schema({
 }
 );
 
-const Reaction = model('Reaction', ReactionSchema);
-
-module.exports = Reaction;
+module.exports = ReactionSchema;
