@@ -81,7 +81,7 @@ const addFriend = async (req, res) => {
         // Update the user's friend list
         const user = await User.findOneAndUpdate(
             { _id: userId },
-            { $addToSet: { friends: friendId } }, // Use $addToSet to avoid duplicate friends
+            { $addToSet: { friends: friendId } },
             { new: true }
         );
 
