@@ -1,6 +1,6 @@
 // Import necessary modules:
 const { ObjectId } = require('mongoose').Types;
-const { User } = require('../models');
+const { Thought, User } = require('../models/');
 
 // Get all users
 const getAllUsers = async (req, res) => {
@@ -30,13 +30,28 @@ const getUserById = async (req, res) => {
 // Create a user
 const createUser = async (req, res) => {
     try {
-        const user = await User.create(req.body);
+        // Extract user data from the request body
+        const { username, email, thoughts, friends } = req.body;
+
+        const createdThoughts = await Thought.create(thoughts || []);
+
+        // Create friends first
+        const createdFriends = await User.create(friends || []);
+
+        // Create the user with the obtained thought and friend ObjectId values
+        const user = await User.create({
+            username,
+            email,
+            thoughts: createdThoughts.map((thought) => thought._id),
+            friends: createdFriends.map((friend) => friend._id),
+        });
+
         return res.json(user);
     } catch (err) {
+        console.error(err);
         return res.status(400).json(err);
     }
 };
-
 // Update user
 const updateUser = async (req, res) => {
     try {
