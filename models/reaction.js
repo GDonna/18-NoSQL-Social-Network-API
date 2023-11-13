@@ -1,9 +1,7 @@
 // import dependencies
 const { Schema, model, Types } = require('mongoose');
-const moment = require('moment');
-// const { create } = require('./user');
 
-// reaction is a subdoc of thought
+
 const ReactionSchema = new Schema({
     reactionID: {
         type: Schema.Types.ObjectId,
