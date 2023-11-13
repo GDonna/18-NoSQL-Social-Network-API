@@ -13,7 +13,7 @@ const getAllUsers = async (req, res) => {
     }
 };
 
-// Get a single user
+// Get a single user by ID
 const getUserById = async (req, res) => {
     try {
         const user = await User.findOne({ _id: req.params.userId });

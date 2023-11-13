@@ -3,7 +3,7 @@ const { ObjectId } = require('mongoose').Types;
 const { Thought, Reaction } = require('../models/index');
 
 // Get all thoughts
-getAllThoughts = async (req, res) => {
+const getAllThoughts = async (req, res) => {
     try {
         const thoughts = await Thought.find();
         return res.json(thoughts);
@@ -14,7 +14,7 @@ getAllThoughts = async (req, res) => {
 };
 
 // Get a single thought by ID
-getThoughtbyID = async (req, res) => {
+const getThoughtbyID = async (req, res) => {
     try {
         const thought = await Thought.findOne({ _id: req.params.thoughtId });
         if (!thought) {
@@ -71,7 +71,7 @@ const deleteThought = async (req, res) => {
 const addReaction = async (req, res) => {
     try {
         // const reaction = await Reaction.create(req.body);
-        const reaction = await Reaction.findOneAndUpdate(
+        const thought = await Thought.findOneAndUpdate(
             { _id: req.params.thoughtId },
             { $addToSet: { reactions: req.body } },
             { new: true }
@@ -86,35 +86,15 @@ const addReaction = async (req, res) => {
 // Delete a reaction by ID
 const deleteReaction = async (req, res) => {
     try {
-        const reaction = await Reaction.findOneAndRemove({ _id: req.params.thoughtId });
+        const reaction = await Thought.findOneAndRemove({ _id: req.params.thoughtId });
         if (!reaction) {
-            return res.status(404).json({ message: 'Huh? No Reaction!' });
+            return res.status(404).json({ message: 'No Reaction!' });
         }
         return res.json({ message: 'Reaction successfully deleted' });
     } catch (err) {
         return res.status(500).json(err);
     }
 };
-
-// async deleteApplication(req, res) {
-//     try {
-//       const application = await Application.findOneAndRemove({ _id: req.params.applicationId });
-
-//       if (!application) {
-//         return res.status(404).json({ message: 'No application with this id!' });
-//       }
-
-//       const user = await User.findOneAndUpdate(
-//         { applications: req.params.applicationId },
-//         { $pull: { applications: req.params.applicationId } },
-//         { new: true }
-//       );
-
-//       if (!user) {
-//         return res.status(404).json({
-//           message: 'Application created but no user with this id!',
-//         });
-//       }
 
 module.exports = {
     getAllThoughts,
@@ -123,4 +103,5 @@ module.exports = {
     updateThought,
     deleteThought,
     addReaction,
+    deleteReaction,
 };
